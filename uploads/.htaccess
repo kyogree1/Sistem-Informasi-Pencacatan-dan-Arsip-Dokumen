@@ -1,0 +1,5 @@
+# Protect upload directory
+<Files ~ "\.php$">
+    Order allow,deny
+    Deny from all
+</Files>

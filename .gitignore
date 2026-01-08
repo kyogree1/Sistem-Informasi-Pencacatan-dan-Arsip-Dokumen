@@ -1,0 +1,28 @@
+# Uploaded documents (optional - uncomment to exclude from git)
+# uploads/documents/*
+# !uploads/documents/.gitkeep
+
+# Configuration (if contains sensitive data)
+# config/config.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*~
+
+# PHP
+vendor/
+composer.lock
