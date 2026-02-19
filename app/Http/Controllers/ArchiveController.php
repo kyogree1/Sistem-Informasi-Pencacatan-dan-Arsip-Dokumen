@@ -32,18 +32,24 @@ class ArchiveController extends Controller
     {
         $validated = $request->validate([
             'nama_debitur'   => 'required|string|max:255',
-            'no_pk'          => 'required|string|max:100|unique:archives,no_pk',
-            'dokumen_divisi'   => 'required|string|max:100',
+            'no_pk'          => 'required|string|max:255|unique:archives,no_pk',
+            'nilai_kredit'   => 'required|numeric', // Tambahkan ini
+            'jumlah_bantex'  => 'required|integer', // Tambahkan ini
+            'dokumen_divisi' => 'required|string|max:255',
             'lokasi_dokumen' => 'required|string|max:255',
-            'pic'            => 'required|string|max:100',
+            'pic'            => 'required|string|max:255',
+            'keterangan'     => 'nullable|string',  // Tambahkan ini (opsional)
         ]);
 
         DB::table('archives')->insert([
             'nama_debitur'   => $validated['nama_debitur'],
             'no_pk'          => $validated['no_pk'],
+            'nilai_kredit'   => $validated['nilai_kredit'], // Tambahkan ini
+            'jumlah_bantex'  => $validated['jumlah_bantex'], // Tambahkan ini
             'dokumen_divisi' => $validated['dokumen_divisi'],
             'lokasi_dokumen' => $validated['lokasi_dokumen'],
             'pic'            => $validated['pic'],
+            'keterangan'     => $validated['keterangan'] ?? null, // Tambahkan ini
             'created_at'     => now(),
             'updated_at'     => now(),
         ]);
