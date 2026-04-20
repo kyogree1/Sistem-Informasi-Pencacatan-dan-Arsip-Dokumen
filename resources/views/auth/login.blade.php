@@ -1,98 +1,132 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — SIPDA BPD Kaltim Kaltara</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <title>Login | Manajemen Arsip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .brand-gradient { background: linear-gradient(135deg, #0C2D57 0%, #0f3a6e 50%, #0c4a8a 100%); }
+    </style>
 </head>
+<body class="h-full bg-slate-50">
+    <div class="flex min-h-full">
 
-<body class="h-full bg-gradient-to-br from-indigo-50 via-white to-blue-50">
-<div class="flex min-h-full items-center justify-center px-4">
+        <!-- LEFT — Branding Panel -->
+        <div class="hidden lg:flex lg:w-1/2 brand-gradient relative overflow-hidden items-center justify-center">
+            <!-- Decorative -->
+            <div class="absolute top-20 -left-20 w-72 h-72 rounded-full bg-sky-400/10 blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-blue-400/10 blur-3xl"></div>
 
-    <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
+            <div class="relative z-10 max-w-md px-12 text-center">
+                <div class="mb-8 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 text-3xl">
+                    📄
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-3">SIPDA</h1>
+                <p class="text-sky-200 text-sm font-medium mb-2">Sistem Informasi Pencatatan & Arsip Dokumen</p>
+                <div class="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-4 py-1.5 mt-4">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-xs text-sky-200 font-medium">BPD Kaltim Kaltara</span>
+                </div>
 
-        <!-- Logo / Title -->
-        <div class="mb-6 text-center">
-            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-white text-xl">
-                📄
+                <div class="mt-12 grid grid-cols-3 gap-4">
+                    <div class="rounded-xl bg-white/8 backdrop-blur-sm border border-white/10 p-3">
+                        <p class="text-lg font-bold text-white">Aman</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Terenkripsi</p>
+                    </div>
+                    <div class="rounded-xl bg-white/8 backdrop-blur-sm border border-white/10 p-3">
+                        <p class="text-lg font-bold text-white">Cepat</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Real-time</p>
+                    </div>
+                    <div class="rounded-xl bg-white/8 backdrop-blur-sm border border-white/10 p-3">
+                        <p class="text-lg font-bold text-white">24/7</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Akses</p>
+                    </div>
+                </div>
             </div>
-            <h1 class="text-2xl font-bold text-gray-900">Masuk</h1>
-            <p class="mt-1 text-sm text-gray-500">
-                Sistem Informasi Pencatatan dan Arsip Dokumen
-            </p>
         </div>
 
-        <!-- Session Status -->
-        @if (session('status'))
-            <div class="mb-4 text-sm text-green-600">
-                {{ session('status') }}
+        <!-- RIGHT — Login Form -->
+        <div class="flex flex-1 items-center justify-center px-6 py-12">
+            <div class="w-full max-w-sm">
+
+                <!-- Mobile Logo -->
+                <div class="lg:hidden text-center mb-8">
+                    <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0C2D57] text-white text-xl">📄</div>
+                    <h1 class="text-xl font-bold text-[#0C2D57]">SIPDA</h1>
+                    <p class="text-xs text-slate-500">BPD Kaltim Kaltara</p>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-[#0C2D57]">Masuk ke Akun</h2>
+                    <p class="mt-1 text-sm text-slate-500">Silakan masukkan kredensial Anda</p>
+                </div>
+
+                @if (session('status'))
+                    <div class="mt-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-sm text-emerald-700">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-5">
+                    @csrf
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            </div>
+                            <input type="email" name="email" value="{{ old('email') }}" required autofocus
+                                class="w-full rounded-xl border-slate-200 pl-10 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 @error('email') border-red-400 @enderror"
+                                placeholder="nama@email.com">
+                        </div>
+                        @error('email')
+                            <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div x-data="{ show: false }">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                            </div>
+                            <input :type="show ? 'text' : 'password'" name="password" required
+                                class="w-full rounded-xl border-slate-200 pl-10 pr-10 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 @error('password') border-red-400 @enderror"
+                                placeholder="Masukkan password">
+                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-sky-600">
+                                <svg x-show="!show" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <svg x-show="show" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/></svg>
+                            </button>
+                        </div>
+                        @error('password')
+                            <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Remember -->
+                    <div class="flex items-center">
+                        <input type="checkbox" name="remember" class="rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                        <span class="ml-2 text-sm text-slate-600">Ingat saya</span>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit"
+                        class="w-full rounded-xl bg-[#0C2D57] py-2.5 text-sm font-semibold text-white hover:bg-[#0f3a6e] transition-all duration-200 shadow-lg shadow-[#0C2D57]/30">
+                        Masuk
+                    </button>
+                </form>
+
+                <p class="mt-8 text-center text-xs text-slate-400">
+                    © {{ date('Y') }} SIPDA — BPD Kaltim Kaltara
+                </p>
             </div>
-        @endif
-
-        <!-- Login Form -->
-        <form method="POST" action="{{ route('login') }}" class="space-y-4">
-            @csrf
-
-            <!-- Email -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                    autofocus
-                    class="mt-1 w-full rounded-lg border px-3 py-2
-                           @error('email') border-red-500 @else border-gray-300 @enderror"
-                />
-                @error('email')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Password -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    required
-                    class="mt-1 w-full rounded-lg border px-3 py-2
-                           @error('password') border-red-500 @else border-gray-300 @enderror"
-                />
-                @error('password')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Remember Me -->
-            <div class="flex items-center">
-                <input
-                    type="checkbox"
-                    name="remember"
-                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </div>
-
-            <!-- Submit -->
-            <button
-                type="submit"
-                class="w-full rounded-lg bg-indigo-600 py-2 text-white hover:bg-indigo-700 transition">
-                Sign In
-            </button>
-        </form>
-
-        <!-- Footer -->
-        <p class="mt-6 text-center text-sm text-gray-500">
-            © {{ date('Y') }} Manajemen Arsip
-        </p>
-
+        </div>
     </div>
-</div>
 </body>
 </html>

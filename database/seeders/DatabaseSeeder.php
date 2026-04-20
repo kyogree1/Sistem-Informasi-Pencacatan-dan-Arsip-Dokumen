@@ -21,15 +21,19 @@ class DatabaseSeeder extends Seeder
         // Admin
         User::create([
             'name' => 'Admin Arsip',
+            'personal_number' => 'ADM001',
             'email' => 'admin@arsip.test',
             'password' => Hash::make('password'),
+            'role' => 'admin',
         ]);
 
         // User biasa
         User::create([
             'name' => 'User Arsip',
-            'email' => 'user@arsip.test',
+            'personal_number' => 'PGW001',
+            'email' => 'pegawai@arsip.test',
             'password' => Hash::make('password'),
+            'role' => 'pegawai',
         ]);
 
         // Seed arsip contoh (dashboard)
