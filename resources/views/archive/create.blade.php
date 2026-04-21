@@ -140,7 +140,7 @@
                                 {{-- Keterangan --}}
                                 <div class="md:col-span-2 lg:col-span-3">
                                     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Keterangan</label>
-                                    <textarea name="keterangan" rows="2"
+                                    <textarea name="keterangan" rows="3"
                                         class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm" placeholder="Catatan tambahan...">{{ old('keterangan') }}</textarea>
                                 </div>
                             </div>
