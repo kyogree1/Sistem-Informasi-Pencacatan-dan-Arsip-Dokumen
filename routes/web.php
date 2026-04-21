@@ -20,6 +20,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
     Route::get('/archive/create', [ArchiveController::class, 'create'])->name('archive.create');
     Route::post('/archive', [ArchiveController::class, 'store'])->name('archive.store');
+    Route::get('/archive/{id}/edit', [ArchiveController::class, 'edit'])->name('archive.edit');
+    Route::put('/archive/{id}', [ArchiveController::class, 'update'])->name('archive.update');
+    Route::delete('/archive/{id}', [ArchiveController::class, 'destroy'])->name('archive.destroy');
+
+    // 🏷️ KODE ARSIP
+    Route::get('/kode-arsip', [\App\Http\Controllers\KodeArsipController::class, 'index'])->name('kode_arsip.index');
+    Route::get('/kode-arsip/{id}/edit', [\App\Http\Controllers\KodeArsipController::class, 'edit'])->name('kode_arsip.edit');
+    Route::put('/kode-arsip/{id}', [\App\Http\Controllers\KodeArsipController::class, 'update'])->name('kode_arsip.update');
 
     // 👤 PROFILE
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

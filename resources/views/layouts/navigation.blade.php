@@ -1,12 +1,14 @@
-<nav x-data="{ open: false }" class="bg-[#0C2D57] shadow-lg">
+<nav x-data="{ open: false }" class="bg-[#12284B] relative z-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center gap-2.5">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
-                        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/15 text-white text-sm font-bold">📄</span>
-                        <div class="hidden sm:block">
+                        <div class="bg-white p-1.5 rounded-lg shadow-sm flex items-center justify-center">
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo BPD Kaltimtara" class="h-6">
+                        </div>
+                        <div class="hidden sm:block ml-1">
                             <span class="text-white font-bold text-sm tracking-wide">SIPDA</span>
                             <span class="text-sky-300 text-[10px] block -mt-0.5 font-medium">BPD Kaltim Kaltara</span>
                         </div>
@@ -24,6 +26,11 @@
                        class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
                               {{ request()->routeIs('archive.*') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
                         Arsip
+                    </a>
+                    <a href="{{ route('kode_arsip.index') }}"
+                       class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
+                              {{ request()->routeIs('kode_arsip.*') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
+                        Kode Arsip
                     </a>
                     @if(auth()->user()?->role === 'admin')
                         <a href="{{ route('admin.pegawai.index') }}"
@@ -77,13 +84,16 @@
     </div>
 
     <!-- Responsive Navigation -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#0a2548] border-t border-white/10">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#1e2a38] border-t border-white/10">
         <div class="pt-2 pb-3 space-y-1 px-3">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10' }}">
                 Dashboard
             </a>
             <a href="{{ route('archive.index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('archive.*') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10' }}">
                 Arsip
+            </a>
+            <a href="{{ route('kode_arsip.index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('kode_arsip.*') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10' }}">
+                Kode Arsip
             </a>
             @if(auth()->user()?->role === 'admin')
                 <a href="{{ route('admin.pegawai.index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.pegawai.*') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10' }}">

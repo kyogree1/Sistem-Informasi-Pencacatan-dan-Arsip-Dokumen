@@ -19,8 +19,10 @@
             * { font-family: 'Inter', sans-serif; }
         </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-slate-50">
+    <body class="font-sans antialiased text-[#12284B] bg-[#FFF8E7] relative">
+        <!-- Subtle noise overlay for texture -->
+        <div class="fixed inset-0 z-[-1] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none"></div>
+        <div class="min-h-screen bg-[#FFF8E7]">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

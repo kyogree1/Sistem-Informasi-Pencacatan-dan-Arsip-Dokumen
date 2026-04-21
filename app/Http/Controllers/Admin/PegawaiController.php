@@ -44,6 +44,8 @@ class PegawaiController extends Controller
             'personal_number' => 'required|string|max:50|unique:users,personal_number',
             'email'           => 'required|email|unique:users,email',
             'password'        => 'required|string|min:6|confirmed',
+            'departemen'      => 'required|string|max:255',
+            'divisi'          => 'required|string|max:255',
         ], [
             'name.required'            => 'Nama wajib diisi.',
             'personal_number.required' => 'Personal Number wajib diisi.',
@@ -53,12 +55,16 @@ class PegawaiController extends Controller
             'password.required'        => 'Password wajib diisi.',
             'password.min'             => 'Password minimal 6 karakter.',
             'password.confirmed'       => 'Konfirmasi password tidak cocok.',
+            'departemen.required'      => 'Departemen wajib diisi.',
+            'divisi.required'          => 'Divisi wajib diisi.',
         ]);
 
         DB::table('users')->insert([
             'name'            => $request->name,
             'personal_number' => $request->personal_number,
             'email'           => $request->email,
+            'departemen'      => $request->departemen,
+            'divisi'          => $request->divisi,
             'password'        => Hash::make($request->password),
             'role'            => 'pegawai',
             'created_at'      => now(),
@@ -77,6 +83,8 @@ class PegawaiController extends Controller
             'personal_number' => 'required|string|max:50|unique:users,personal_number,' . $id,
             'email'           => 'required|email|unique:users,email,' . $id,
             'password'        => 'nullable|string|min:6|confirmed',
+            'departemen'      => 'required|string|max:255',
+            'divisi'          => 'required|string|max:255',
         ], [
             'name.required'            => 'Nama wajib diisi.',
             'personal_number.required' => 'Personal Number wajib diisi.',
@@ -84,12 +92,16 @@ class PegawaiController extends Controller
             'email.unique'             => 'Email sudah digunakan.',
             'password.min'             => 'Password minimal 6 karakter.',
             'password.confirmed'       => 'Konfirmasi password tidak cocok.',
+            'departemen.required'      => 'Departemen wajib diisi.',
+            'divisi.required'          => 'Divisi wajib diisi.',
         ]);
 
         $data = [
             'name'            => $request->name,
             'personal_number' => $request->personal_number,
             'email'           => $request->email,
+            'departemen'      => $request->departemen,
+            'divisi'          => $request->divisi,
             'updated_at'      => now(),
         ];
 

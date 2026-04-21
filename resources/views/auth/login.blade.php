@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Inter', sans-serif; }
-        .brand-gradient { background: linear-gradient(135deg, #0C2D57 0%, #0f3a6e 50%, #0c4a8a 100%); }
+        .brand-gradient { background: linear-gradient(135deg, #2982C6 0%, #206CA7 50%, #16568A 100%); }
     </style>
 </head>
 <body class="h-full bg-slate-50">
@@ -21,8 +21,8 @@
             <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-blue-400/10 blur-3xl"></div>
 
             <div class="relative z-10 max-w-md px-12 text-center">
-                <div class="mb-8 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 text-3xl">
-                    📄
+                <div class="mb-8 mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo BPD Kaltimtara" class="h-12 drop-shadow-md">
                 </div>
                 <h1 class="text-3xl font-bold text-white mb-3">SIPDA</h1>
                 <p class="text-sky-200 text-sm font-medium mb-2">Sistem Informasi Pencatatan & Arsip Dokumen</p>
@@ -52,15 +52,16 @@
         <div class="flex flex-1 items-center justify-center px-6 py-12">
             <div class="w-full max-w-sm">
 
-                <!-- Mobile Logo -->
                 <div class="lg:hidden text-center mb-8">
-                    <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0C2D57] text-white text-xl">📄</div>
-                    <h1 class="text-xl font-bold text-[#0C2D57]">SIPDA</h1>
+                    <div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-xl bg-white border border-slate-100 shadow-sm p-2">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo BPD Kaltimtara" class="w-full">
+                    </div>
+                    <h1 class="text-xl font-bold text-[#12284B]">SIPDA</h1>
                     <p class="text-xs text-slate-500">BPD Kaltim Kaltara</p>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-[#0C2D57]">Masuk ke Akun</h2>
+                    <h2 class="text-2xl font-bold text-[#12284B]">Masuk ke Akun</h2>
                     <p class="mt-1 text-sm text-slate-500">Silakan masukkan kredensial Anda</p>
                 </div>
 
@@ -73,18 +74,18 @@
                 <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-5">
                     @csrf
 
-                    <!-- Email -->
+                    <!-- Personal Number -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Email</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Personal Number</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                                <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
                             </div>
-                            <input type="email" name="email" value="{{ old('email') }}" required autofocus
-                                class="w-full rounded-xl border-slate-200 pl-10 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 @error('email') border-red-400 @enderror"
-                                placeholder="nama@email.com">
+                            <input type="text" name="personal_number" value="{{ old('personal_number') }}" required autofocus
+                                class="w-full rounded-xl border-slate-200 pl-10 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 @error('personal_number') border-red-400 @enderror"
+                                placeholder="Masukkan Personal Number">
                         </div>
-                        @error('email')
+                        @error('personal_number')
                             <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -117,7 +118,7 @@
 
                     <!-- Submit -->
                     <button type="submit"
-                        class="w-full rounded-xl bg-[#0C2D57] py-2.5 text-sm font-semibold text-white hover:bg-[#0f3a6e] transition-all duration-200 shadow-lg shadow-[#0C2D57]/30">
+                        class="w-full rounded-xl bg-[#12284B] py-2.5 text-sm font-semibold text-white hover:bg-[#0f3a6e] transition-all duration-200 shadow-lg shadow-[#12284B]/30">
                         Masuk
                     </button>
                 </form>

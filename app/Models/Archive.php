@@ -10,14 +10,18 @@ class Archive extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_debitur',
+        'cif',
         'no_pk',
-        'nilai_kredit',
-        'jumlah_bantex',
-        'dokumen_divisi',
-        'lokasi_dokumen',
-        'departemen',
+        'nama',
+        'nomor_rekening',
+        'plafon',
+        'status',
         'pic',
+        'berkas',
+        'departemen',
         'keterangan',
+        'lokasi_arsip',
+        'no_rak',
+        'baris_rak',
     ];
 }
