@@ -10,18 +10,25 @@ use App\Models\Archive;
 class ArchiveController extends Controller
 {
     public function index(Request $request)
-    {
-        $arsip = DB::table('archives')
-            ->when($request->search, function ($q) use ($request) {
-                $q->where('nama', 'like', '%' . $request->search . '%')
-                  ->orWhere('cif', 'like', '%' . $request->search . '%');
-            })
-            ->orderByDesc('id')
-            ->paginate(10);
+{
+    // 1. Inisiasi query dasar
+    $query = DB::table('archives');
 
-        return view('archive.index', compact('arsip'));
-    }
+    // 2. Fitur Pencarian & Pagination
+    // Hapus logika filter bulan karena halaman ini adalah master data
+    $arsip = $query->when($request->search, function ($q) use ($request) {
+            $q->where(function ($sub) use ($request) {
+                $sub->where('nama', 'like', '%' . $request->search . '%')
+                    ->orWhere('cif', 'like', '%' . $request->search . '%')
+                    ->orWhere('no_pk', 'like', '%' . $request->search . '%'); // Opsional: tambah pencarian no_pk
+            });
+        })
+        ->orderByDesc('created_at') // Urutkan dari yang paling baru
+        ->paginate(10); // Menampilkan 10 data per halaman
 
+    // 3. Lempar variabel ke tampilan
+    return view('archive.index', compact('arsip'));
+}
     public function create()
     {
         return view('archive.create');
@@ -49,7 +56,7 @@ class ArchiveController extends Controller
         if ($request->hasFile('berkas')) {
             $berkasPath = $request->file('berkas')->store('berkas_arsip', 'public');
         }
-        
+
         $validated['berkas'] = $berkasPath;
         $validated['created_at'] = now();
         $validated['updated_at'] = now();

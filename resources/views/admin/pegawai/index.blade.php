@@ -3,7 +3,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <div class="py-0" x-data="pegawaiPage()">
-        <!-- HERO BANNER -->
         <div class="bg-gradient-to-r from-[#12284B] via-[#0055A0] to-[#438BC4] relative overflow-hidden">
             <div class="absolute inset-0"><svg class="absolute right-0 top-0 h-full w-1/3 opacity-5" viewBox="0 0 300 200" fill="none"><circle cx="200" cy="80" r="160" fill="white"/></svg></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
@@ -40,7 +39,6 @@
                 </div>
             @endif
 
-            <!-- TOOLBAR CARD -->
             <div class="rounded-2xl bg-white shadow-lg shadow-slate-200/50 border border-slate-100 p-5">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <form method="GET" action="{{ route('admin.pegawai.index') }}" class="flex gap-2 w-full sm:w-auto">
@@ -58,7 +56,6 @@
                 </div>
             </div>
 
-            <!-- TABLE -->
             <div class="rounded-2xl bg-white shadow-lg shadow-slate-200/50 border border-slate-100 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-slate-100">
@@ -98,7 +95,6 @@
                                         {{ $user->divisi ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm whitespace-nowrap whitespace-nowrap" x-data="{ show: false }">
-                                        <!-- State: Hidden (default) -->
                                         <div x-show="!show" class="flex items-center gap-2">
                                             <span class="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-mono text-slate-500">
                                                 <svg class="h-3.5 w-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
@@ -108,7 +104,6 @@
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                             </button>
                                         </div>
-                                        <!-- State: Shown -->
                                         <div x-show="show" x-transition class="flex items-center gap-2">
                                             <span class="inline-flex items-center gap-1.5 rounded-lg bg-amber-50 border border-amber-200 px-2.5 py-1.5 text-xs font-medium text-amber-700">
                                                 <svg class="h-3.5 w-3.5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
@@ -147,7 +142,6 @@
             </div>
         </div>
 
-        <!-- MODAL EDIT -->
         <div x-show="showEdit" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" @click.self="showEdit = false">
             <div x-show="showEdit" x-transition class="w-full max-w-lg mx-4 rounded-2xl bg-white shadow-2xl overflow-hidden">
                 <div class="bg-gradient-to-r from-[#12284B] via-[#0055A0] to-[#438BC4] px-6 py-4 flex items-center justify-between">
@@ -178,12 +172,21 @@
                             <input type="text" name="divisi" x-model="editData.divisi" required class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
                         </div>
                         <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Role</label>
+                            <select name="role" x-model="editData.role" required class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
+                                <option value="pegawai">Pegawai</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2"> <hr class="border-slate-100 my-2">
+                        </div>
+                        <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Password Baru <span class="text-slate-400 font-normal">(opsional)</span></label>
-                            <input type="password" name="password" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
+                            <input type="password" name="password" x-model="editData.password" autocomplete="new-password" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
+                            <input type="password" name="password_confirmation" x-model="editData.password_confirmation" autocomplete="new-password" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
                         </div>
                     </div>
                     <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
@@ -201,15 +204,18 @@
         function pegawaiPage() {
             return {
                 showEdit: false,
-                editData: { name: '', personal_number: '', email: '', departemen: '', divisi: '' },
+                editData: { name: '', personal_number: '', email: '', departemen: '', divisi: '', role: '', password: '', password_confirmation: '' },
                 editAction: '',
                 openEdit(user) {
-                    this.editData = { 
-                        name: user.name, 
-                        personal_number: user.personal_number || '', 
+                    this.editData = {
+                        name: user.name,
+                        personal_number: user.personal_number || '',
                         email: user.email,
                         departemen: user.departemen || '',
-                        divisi: user.divisi || ''
+                        divisi: user.divisi || '',
+                        role: user.role || 'pegawai',
+                        password: '',
+                        password_confirmation: ''
                     };
                     this.editAction = `/kelola/pegawai/${user.id}`;
                     this.showEdit = true;

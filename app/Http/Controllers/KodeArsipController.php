@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Archive;
+use Illuminate\Support\Facades\DB;
 
 class KodeArsipController extends Controller
 {
@@ -17,7 +18,7 @@ class KodeArsipController extends Controller
 
         // Get paginated unique debiturs (group by nama)
         $paginatedDebiturs = (clone $query)
-            ->select('nama', \DB::raw('COUNT(*) as total_bantex'))
+            ->select('nama', DB::raw('COUNT(*) as total_bantex'))
             ->groupBy('nama')
             ->paginate(10);
 

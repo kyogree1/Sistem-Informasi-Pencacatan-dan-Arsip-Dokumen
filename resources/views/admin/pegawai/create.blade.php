@@ -73,6 +73,14 @@
                                 <input type="text" name="divisi" value="{{ old('divisi') }}" required class="w-full rounded-xl border-slate-200 px-4 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm" placeholder="Masukkan nama divisi">
                             </div>
                         </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Role</label>
+                            <select name="role" x-model="editData.role" required
+                                class="w-full rounded-xl border-slate-200 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm">
+                                <option value="pegawai">Pegawai</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">Password <span class="text-red-500">*</span></label>

@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
-    // ===== INDEX — Daftar Semua Pegawai =====
+// ===== INDEX — Daftar Semua Pegawai & Admin =====
     public function index(Request $request)
     {
         $search = $request->search;
 
+        // 1. HAPUS baris ->where('role', 'pegawai') di sini agar semua tampil
         $pegawai = DB::table('users')
-            ->where('role', 'pegawai')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%')
@@ -25,7 +25,8 @@ class PegawaiController extends Controller
             ->orderByDesc('id')
             ->paginate(10);
 
-        $totalPegawai = DB::table('users')->where('role', 'pegawai')->count();
+        // 2. HAPUS juga filter ->where('role', 'pegawai') pada perhitungan total ini
+        $totalPegawai = DB::table('users')->count();
 
         return view('admin.pegawai.index', compact('pegawai', 'totalPegawai'));
     }
@@ -46,6 +47,8 @@ class PegawaiController extends Controller
             'password'        => 'required|string|min:6|confirmed',
             'departemen'      => 'required|string|max:255',
             'divisi'          => 'required|string|max:255',
+            // Opsional: tambahkan validasi role jika ada di form create
+            'role'            => 'nullable|in:admin,pegawai',
         ], [
             'name.required'            => 'Nama wajib diisi.',
             'personal_number.required' => 'Personal Number wajib diisi.',
@@ -66,7 +69,8 @@ class PegawaiController extends Controller
             'departemen'      => $request->departemen,
             'divisi'          => $request->divisi,
             'password'        => Hash::make($request->password),
-            'role'            => 'pegawai',
+            // Gunakan request role jika ada, jika tidak default ke 'pegawai'
+            'role'            => $request->role ?? 'pegawai',
             'created_at'      => now(),
             'updated_at'      => now(),
         ]);
@@ -85,6 +89,8 @@ class PegawaiController extends Controller
             'password'        => 'nullable|string|min:6|confirmed',
             'departemen'      => 'required|string|max:255',
             'divisi'          => 'required|string|max:255',
+            // PENAMBAHAN: Validasi role
+            'role'            => 'required|string|in:admin,pegawai',
         ], [
             'name.required'            => 'Nama wajib diisi.',
             'personal_number.required' => 'Personal Number wajib diisi.',
@@ -94,6 +100,9 @@ class PegawaiController extends Controller
             'password.confirmed'       => 'Konfirmasi password tidak cocok.',
             'departemen.required'      => 'Departemen wajib diisi.',
             'divisi.required'          => 'Divisi wajib diisi.',
+            // PENAMBAHAN: Pesan error kustom untuk role
+            'role.required'            => 'Role wajib dipilih.',
+            'role.in'                  => 'Role yang dipilih tidak valid.',
         ]);
 
         $data = [
@@ -102,6 +111,8 @@ class PegawaiController extends Controller
             'email'           => $request->email,
             'departemen'      => $request->departemen,
             'divisi'          => $request->divisi,
+            // PENAMBAHAN: Masukkan data role ke array pembaruan
+            'role'            => $request->role,
             'updated_at'      => now(),
         ];
 
