@@ -9,28 +9,35 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // Ambil parameter bulan dan tahun dari URL
         $filterBulan = $request->query('bulan');
+        $filterTahun = $request->query('tahun', now()->year); // Default ke tahun saat ini
 
-        // 1. TOTAL ARSIP (Global)
+        // 1. TOTAL ARSIP (Tetap ambil semua)
         $totalArsip = DB::table('archives')->count();
 
-        // 2. Query Utama (untuk digunakan di kartu DAN tabel)
+        // 2. QUERY UTAMA
         $query = DB::table('archives');
 
-        // Terapkan filter jika ada
-        if ($filterBulan && $filterBulan !== 'semua') {
-            $query->whereMonth('created_at', $filterBulan)
-                ->whereYear('created_at', now()->year);
-        } elseif (!$filterBulan) {
-            // Default: jika tidak ada filter, gunakan bulan ini
-            $query->whereMonth('created_at', now()->month)  
-                ->whereYear('created_at', now()->year);
+        // -- Filter Tahun --
+        if ($filterTahun !== 'semua') {
+            $query->whereYear('created_at', $filterTahun);
         }
 
-        // Hitung jumlah untuk kartu (gunakan clone agar $query tidak rusak)
+        // -- Filter Bulan --
+        if ($filterBulan === 'semua') {
+            // Jangan filter bulan (akan menampilkan full 1 tahun atau seluruh waktu)
+        } elseif ($filterBulan) {
+            $query->whereMonth('created_at', $filterBulan);
+        } else {
+            // Default: bulan ini
+            $query->whereMonth('created_at', now()->month);
+        }
+
+        // Hitung jumlah untuk kartu
         $arsipBulanIni = (clone $query)->count();
 
-        // Ambil 5 data terbaru (mengikuti filter bulan yang dipilih)
+        // Ambil data untuk tabel
         $arsipTerbaru = (clone $query)
             ->orderByDesc('created_at')
             ->limit(5)

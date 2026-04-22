@@ -44,75 +44,76 @@
                 </div>
 
                 <!-- Arsip Bulan Ini -->
-                <div x-data="{ filterOpen: false }" class="relative group rounded-2xl bg-white p-5 shadow-lg shadow-slate-200/50 border border-slate-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
+                <div x-data="{ monthOpen: false, yearOpen: false }" class="relative group rounded-2xl bg-white p-5 shadow-lg shadow-slate-200/50 border border-slate-100 hover:shadow-xl hover:border-emerald-200 transition-all duration-300">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
                         </span>
 
-                        <button @click="filterOpen = !filterOpen" @click.away="filterOpen = false" class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-full px-3 py-1.5 uppercase transition-all duration-200 cursor-pointer shadow-sm">
-                            @php
-                                $bln = request('bulan');
-                                $bulanNames = ['01'=>'Januari', '02'=>'Februari', '03'=>'Maret', '04'=>'April', '05'=>'Mei', '06'=>'Juni', '07'=>'Juli', '08'=>'Agustus', '09'=>'September', '10'=>'Oktober', '11'=>'November', '12'=>'Desember'];
-                            @endphp
-                            <span>
-                                {{ $bln == 'semua' ? 'Semua Waktu' : ($bln ? $bulanNames[$bln] ?? 'Bulan Ini' : 'Bulan Ini') }}
-                            </span>
-                            <svg class="h-3.5 w-3.5 transition-transform duration-300" :class="filterOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
-                        </button>
+                        <div class="flex items-center gap-1.5">
 
-                        <div x-show="filterOpen"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-2 scale-95"
-                            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                            x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                            class="absolute right-0 top-16 z-30 w-72 origin-top-right rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl ring-1 ring-slate-900/5 overflow-hidden focus:outline-none"
-                            style="display: none;">
+                            <div class="relative">
+                                <button @click="yearOpen = !yearOpen; monthOpen = false" @click.away="yearOpen = false" class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-full px-3 py-1.5 uppercase transition-all duration-200 cursor-pointer shadow-sm">
+                                    @php $thn = request('tahun', date('Y')); @endphp
+                                    <span>{{ $thn == 'semua' ? 'Semua Tahun' : $thn }}</span>
+                                    <svg class="h-3 w-3 transition-transform duration-300" :class="yearOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
+                                </button>
 
-                            <div class="p-2 bg-slate-50/80 border-b border-slate-100">
-                                <a href="{{ request()->fullUrlWithQuery(['bulan' => null]) }}"
-                                class="flex items-center justify-between w-full px-3 py-2 text-xs font-semibold rounded-lg transition-colors {{ !$bln ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">
-                                    <div class="flex items-center gap-2">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        Tampilkan Bulan Ini
+                                <div x-show="yearOpen" x-transition class="absolute right-0 top-10 z-40 w-40 origin-top-right rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl ring-1 ring-slate-900/5 overflow-hidden focus:outline-none" style="display: none;">
+                                    <div class="p-2 bg-slate-50/80 border-b border-slate-100">
+                                        <a href="{{ request()->fullUrlWithQuery(['tahun' => null]) }}" class="block px-3 py-2 text-xs font-semibold rounded-lg transition-colors {{ $thn == date('Y') ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">Tahun Ini</a>
+                                        <a href="{{ request()->fullUrlWithQuery(['tahun' => 'semua']) }}" class="block px-3 py-2 mt-1 text-xs font-semibold rounded-lg transition-colors {{ $thn == 'semua' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">Semua Tahun</a>
                                     </div>
-                                    @if(!$bln) <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> @endif
-                                </a>
-                                <a href="{{ request()->fullUrlWithQuery(['bulan' => 'semua']) }}"
-                                class="flex items-center justify-between w-full px-3 py-2 mt-1 text-xs font-semibold rounded-lg transition-colors {{ $bln == 'semua' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">
-                                    <div class="flex items-center gap-2">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-                                        Tampilkan Semua Waktu
+                                    <div class="p-2 grid grid-cols-2 gap-1">
+                                        @foreach(range(date('Y') - 2, date('Y') + 2) as $y)
+                                            <a href="{{ request()->fullUrlWithQuery(['tahun' => $y]) }}" class="text-center px-2 py-1.5 text-xs font-medium rounded-lg transition-all {{ $thn == $y ? 'bg-emerald-500 text-white font-bold' : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700' }}">
+                                                {{ $y }}
+                                            </a>
+                                        @endforeach
                                     </div>
-                                    @if($bln == 'semua') <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> @endif
-                                </a>
+                                </div>
                             </div>
 
-                            <div class="p-3">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Pilih Bulan Spesifik</p>
-                                <div class="grid grid-cols-3 gap-1.5">
-                                    @foreach(['01'=>'Jan', '02'=>'Feb', '03'=>'Mar', '04'=>'Apr', '05'=>'Mei', '06'=>'Jun', '07'=>'Jul', '08'=>'Agt', '09'=>'Sep', '10'=>'Okt', '11'=>'Nov', '12'=>'Des'] as $num => $name)
-                                        <a href="{{ request()->fullUrlWithQuery(['bulan' => $num]) }}"
-                                        class="text-center px-2 py-2 text-xs font-medium rounded-lg transition-all duration-200 {{ $bln === (string)$num ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/30 font-bold scale-105' : 'bg-slate-50 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 hover:scale-105' }}">
-                                            {{ $name }}
-                                        </a>
-                                    @endforeach
+                            <div class="relative">
+                                <button @click="monthOpen = !monthOpen; yearOpen = false" @click.away="monthOpen = false" class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-full px-3 py-1.5 uppercase transition-all duration-200 cursor-pointer shadow-sm">
+                                    @php
+                                        $bln = request('bulan');
+                                        $bulanNames = ['01'=>'Jan', '02'=>'Feb', '03'=>'Mar', '04'=>'Apr', '05'=>'Mei', '06'=>'Jun', '07'=>'Jul', '08'=>'Agt', '09'=>'Sep', '10'=>'Okt', '11'=>'Nov', '12'=>'Des'];
+                                    @endphp
+                                    <span>{{ $bln == 'semua' ? 'Semua Waktu' : ($bln ? $bulanNames[$bln] ?? 'Bulan Ini' : 'Bulan Ini') }}</span>
+                                    <svg class="h-3 w-3 transition-transform duration-300" :class="monthOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
+                                </button>
+
+                                <div x-show="monthOpen" x-transition class="absolute right-0 top-10 z-30 w-72 origin-top-right rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl ring-1 ring-slate-900/5 overflow-hidden focus:outline-none" style="display: none;">
+                                    <div class="p-2 bg-slate-50/80 border-b border-slate-100">
+                                        <a href="{{ request()->fullUrlWithQuery(['bulan' => null]) }}" class="block px-3 py-2 text-xs font-semibold rounded-lg transition-colors {{ !$bln ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">Bulan Ini</a>
+                                        <a href="{{ request()->fullUrlWithQuery(['bulan' => 'semua']) }}" class="block px-3 py-2 mt-1 text-xs font-semibold rounded-lg transition-colors {{ $bln == 'semua' ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-100' }}">Semua Waktu</a>
+                                    </div>
+                                    <div class="p-3 grid grid-cols-3 gap-1.5">
+                                        @foreach($bulanNames as $num => $name)
+                                            <a href="{{ request()->fullUrlWithQuery(['bulan' => $num]) }}" class="text-center px-2 py-2 text-xs font-medium rounded-lg transition-all {{ $bln === (string)$num ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/30 font-bold scale-105' : 'bg-slate-50 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 hover:scale-105' }}">
+                                                {{ $name }}
+                                            </a>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <p class="text-3xl font-extrabold text-[#12284B] mt-2">{{ $arsipBulanIni }}</p>
-                    <p class="text-xs text-slate-500 mt-1 font-medium">
-                        @php $bln = request('bulan'); @endphp
-                        @if($bln == 'semua')
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium leading-tight">
+                        @php
+                            $namaBulanSingkat = $bln && $bln != 'semua' ? (['01'=>'Januari', '02'=>'Februari', '03'=>'Maret', '04'=>'April', '05'=>'Mei', '06'=>'Juni', '07'=>'Juli', '08'=>'Agustus', '09'=>'September', '10'=>'Oktober', '11'=>'November', '12'=>'Desember'][$bln] ?? '') : '';
+                        @endphp
+                        @if($bln == 'semua' && $thn == 'semua')
                             Total keseluruhan dokumen
-                        @elseif($bln)
-                            Dokumen ditambahkan di bulan {{ ['01'=>'Januari', '02'=>'Februari', '03'=>'Maret', '04'=>'April', '05'=>'Mei', '06'=>'Juni', '07'=>'Juli', '08'=>'Agustus', '09'=>'September', '10'=>'Oktober', '11'=>'November', '12'=>'Desember'][$bln] ?? '' }}
+                        @elseif($bln == 'semua')
+                            Total dokumen tahun {{ $thn }}
+                        @elseif($thn == 'semua')
+                            Dokumen bulan {{ $namaBulanSingkat ?: 'ini' }} (Semua tahun)
                         @else
-                            Dokumen ditambahkan bulan ini
+                            Dokumen ditambahkan bulan {{ $namaBulanSingkat ?: 'ini' }} {{ $thn == date('Y') && !$bln ? '' : $thn }}
                         @endif
                     </p>
                 </div>
