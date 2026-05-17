@@ -1,3 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		--bg: 255 248 231;
+		--surface: 255 255 255;
+		--surface-muted: 248 250 252;
+		--text: 15 23 42;
+		--text-muted: 71 85 105;
+		--border: 226 232 240;
+		--brand: 18 40 75;
+		--brand-accent: 0 85 160;
+		--brand-soft: 140 193 233;
+		--gold: 221 163 54;
+	}
+
+	.dark {
+		--bg: 10 15 25;
+		--surface: 15 23 42;
+		--surface-muted: 30 41 59;
+		--text: 226 232 240;
+		--text-muted: 148 163 184;
+		--border: 51 65 85;
+		--brand: 148 193 233;
+		--brand-accent: 56 189 248;
+		--brand-soft: 30 58 138;
+		--gold: 245 158 11;
+	}
+
+	* {
+		@apply antialiased;
+	}
+
+	body {
+		@apply font-sans bg-[rgb(var(--bg))] text-[rgb(var(--text))];
+	}
+
+	::selection {
+		background: rgba(56, 189, 248, 0.35);
+	}
+}
+
+@layer components {
+	.card {
+		@apply rounded-2xl bg-[rgb(var(--surface))] border border-[rgb(var(--border))] shadow-soft;
+	}
+
+	.card-muted {
+		@apply rounded-2xl bg-[rgb(var(--surface-muted))] border border-[rgb(var(--border))];
+	}
+
+	.card-header {
+		@apply flex items-center justify-between border-b border-[rgb(var(--border))] px-6 py-4;
+	}
+
+	.badge {
+		@apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+	}
+
+	.badge-brand {
+		@apply badge bg-sky-50 text-sky-700 border border-sky-100 dark:bg-sky-900/40 dark:text-sky-200 dark:border-sky-800/60;
+	}
+
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-400/60 focus:ring-offset-2 focus:ring-offset-[rgb(var(--bg))];
+	}
+
+	.btn-primary {
+		@apply btn bg-brand-navy text-white hover:bg-[#0f3a6e] shadow-glow;
+	}
+
+	.btn-secondary {
+		@apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 dark:hover:bg-slate-700;
+	}
+
+	.btn-ghost {
+		@apply btn bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700/60;
+	}
+
+	.input-field {
+		@apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500;
+	}
+
+	.table-base {
+		@apply min-w-full divide-y divide-slate-100 dark:divide-slate-800;
+	}
+
+	.table-head {
+		@apply bg-sky-100 text-slate-700 dark:bg-slate-800/70 dark:text-slate-200;
+	}
+
+	.table-row {
+		@apply transition-colors hover:bg-sky-50/70 dark:hover:bg-slate-800/60;
+	}
+}

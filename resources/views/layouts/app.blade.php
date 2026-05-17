@@ -19,15 +19,15 @@
             * { font-family: 'Inter', sans-serif; }
         </style>
     </head>
-    <body class="font-sans antialiased text-[#12284B] bg-[#FFF8E7] relative">
+    <body class="font-sans antialiased relative">
         <!-- Subtle noise overlay for texture -->
-        <div class="fixed inset-0 z-[-1] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none"></div>
-        <div class="min-h-screen bg-[#FFF8E7]">
+        <div class="fixed inset-0 z-[-1] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.04] pointer-events-none"></div>
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white border-b border-slate-200">
+                <header class="bg-[rgb(var(--surface))] border-b border-[rgb(var(--border))]">
                     <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>

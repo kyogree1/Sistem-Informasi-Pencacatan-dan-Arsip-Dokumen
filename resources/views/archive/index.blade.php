@@ -28,21 +28,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 -mt-5 relative z-20 pb-10">
 
             <!-- TOOLBAR CARD -->
-            <div class="rounded-2xl bg-white shadow-lg shadow-slate-200/50 border border-slate-100 p-5 mb-6">
+            <div class="rounded-2xl bg-white dark:bg-slate-900 shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 p-5 mb-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <form method="GET" class="flex gap-2 w-full sm:w-auto">
                         <div class="relative flex-1 sm:w-80">
                             <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
                             <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama Debitur / No PK..."
-                                class="w-full rounded-xl border-slate-200 pl-10 pr-4 py-2.5 text-sm shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                                class="input-field pl-10 pr-4">
                         </div>
-                        <button type="submit" class="rounded-xl bg-[#12284B] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#0f3a6e] transition shadow-sm">
+                        <button type="submit" class="btn btn-primary px-5 py-2.5">
                             <svg class="h-4 w-4 inline mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
                             Filter
                         </button>
                     </form>
 
-                    <a href="{{ route('archive.create') }}" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#0055A0] to-[#12284B] px-5 py-2.5 text-sm font-bold text-white hover:shadow-lg transition-all shadow-sm shadow-[#0055A0]/20 hover:-translate-y-0.5">
+                    <a href="{{ route('archive.create') }}" class="btn bg-gradient-to-r from-[#0055A0] to-[#12284B] text-white px-5 py-2.5 font-bold shadow-sm shadow-[#0055A0]/20 hover:-translate-y-0.5">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                         Tambah Arsip
                     </a>
@@ -50,10 +50,10 @@
             </div>
 
             <!-- TABLE -->
-            <div class="rounded-2xl bg-white shadow-lg shadow-slate-200/50 border border-slate-100 overflow-hidden">
+            <div class="rounded-2xl bg-white dark:bg-slate-900 shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-slate-100">
-                        <thead class="bg-[#8CC1E9] border-b border-[#8CC1E9] whitespace-nowrap">
+                    <table class="table-base">
+                        <thead class="table-head border-b border-[#8CC1E9] dark:border-slate-700 whitespace-nowrap">
                             <tr>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-[#12284B] uppercase tracking-wider whitespace-nowrap">CIF</th>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-[#12284B] uppercase tracking-wider whitespace-nowrap">Nama Debitur</th>
@@ -65,31 +65,31 @@
                                 <th class="px-6 py-4 text-center text-[11px] font-bold text-[#12284B] uppercase tracking-wider whitespace-nowrap">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-50">
+                        <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
                             @forelse ($arsip as $item)
-                                <tr class="hover:bg-sky-50/50 transition-colors group">
+                                <tr class="table-row group">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-mono font-bold text-slate-600">{{ $item->cif }}</span>
+                                        <span class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-mono font-bold text-slate-600 dark:text-slate-300">{{ $item->cif }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center gap-3">
                                             <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-500 group-hover:bg-blue-100 transition shrink-0">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
                                             </span>
-                                            <span class="text-sm font-semibold text-[#12284B]">{{ $item->nama }}</span>
+                                            <span class="text-sm font-semibold text-[#12284B] dark:text-slate-100">{{ $item->nama }}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm font-semibold text-slate-600">{{ $item->nomor_rekening }}</span>
+                                        <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">{{ $item->nomor_rekening }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm font-bold text-[#12284B]">Rp. {{ number_format($item->plafon, 0, ',', '.') }}</span>
+                                        <span class="text-sm font-bold text-[#12284B] dark:text-slate-100">Rp. {{ number_format($item->plafon, 0, ',', '.') }}</span>
                                     </td>
                                     <td class="px-6 py-4 text-center whitespace-nowrap">
                                         @if($item->status == 'Lunas')
-                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600 border border-emerald-200">Lunas</span>
+                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/60">Lunas</span>
                                         @else
-                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600 border border-red-200">Belum Lunas</span>
+                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 dark:bg-red-500/10 px-3 py-1 text-xs font-bold text-red-600 dark:text-red-300 border border-red-200 dark:border-red-700/60">Belum Lunas</span>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 text-center whitespace-nowrap">
@@ -102,7 +102,7 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 text-center whitespace-nowrap">
-                                        <span class="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">{{ $item->pic ?? '-' }}</span>
+                                        <span class="inline-flex items-center gap-1 rounded-lg bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300">{{ $item->pic ?? '-' }}</span>
                                     </td>
                                     <td class="px-6 py-4 text-center whitespace-nowrap">
                                         <div class="flex items-center justify-center gap-2">
@@ -126,7 +126,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="border-t border-slate-100 px-6 py-4">{{ $arsip->withQueryString()->links() }}</div>
+                <div class="border-t border-slate-100 dark:border-slate-800 px-6 py-4">{{ $arsip->withQueryString()->links() }}</div>
             </div>
         </div>
 

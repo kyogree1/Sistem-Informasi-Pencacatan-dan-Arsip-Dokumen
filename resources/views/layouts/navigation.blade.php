@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-[#12284B] relative z-20">
+<nav x-data="{ open: false, dark: document.documentElement.classList.contains('dark') }" class="bg-[#12284B] dark:bg-slate-900 relative z-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -43,7 +43,12 @@
             </div>
 
             <!-- User Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
+                <button type="button" @click="dark = !dark; window.toggleSipdaTheme()"
+                    class="inline-flex items-center justify-center h-9 w-9 rounded-xl bg-white/10 text-white hover:bg-white/20 transition">
+                    <svg x-show="!dark" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364-6.364l-1.59 1.59M7.226 16.774l-1.59 1.59m0-11.154l1.59 1.59m9.548 9.548l1.59 1.59M12 6.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5z"/></svg>
+                    <svg x-show="dark" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0112.003 21C6.477 21 2 16.523 2 10.997c0-4.133 2.48-7.687 6.033-9.253a.75.75 0 01.98.946A7.5 7.5 0 0018.31 14.99a.75.75 0 01.943 1.012z"/></svg>
+                </button>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 text-sm font-medium text-white hover:bg-white/20 transition-all duration-200 focus:outline-none">
@@ -84,7 +89,7 @@
     </div>
 
     <!-- Responsive Navigation -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#1e2a38] border-t border-white/10">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#1e2a38] dark:bg-slate-900 border-t border-white/10">
         <div class="pt-2 pb-3 space-y-1 px-3">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10' }}">
                 Dashboard
@@ -114,6 +119,11 @@
             </div>
 
             <div class="space-y-1">
+                <button type="button" @click="dark = !dark; window.toggleSipdaTheme()" class="w-full inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10">
+                    <svg x-show="!dark" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364-6.364l-1.59 1.59M7.226 16.774l-1.59 1.59m0-11.154l1.59 1.59m9.548 9.548l1.59 1.59M12 6.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5z"/></svg>
+                    <svg x-show="dark" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0112.003 21C6.477 21 2 16.523 2 10.997c0-4.133 2.48-7.687 6.033-9.253a.75.75 0 01.98.946A7.5 7.5 0 0018.31 14.99a.75.75 0 01.943 1.012z"/></svg>
+                    <span>Mode Gelap</span>
+                </button>
                 <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-white/10">Profile</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
